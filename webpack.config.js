@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const webpack = require("webpack");
 
 module.exports = {
   mode: "development",
@@ -31,11 +32,17 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./public/index.html"
-    })
+    }),
+    new webpack.HotModuleReplacementPlugin()
   ],
   devServer: {
+    static: {
+      directory: path.join(__dirname, "public")
+    },
     historyApiFallback: true,
     port: 3000,
-    open: true
+    open: true,
+    hot: true,
+    watchFiles: ["src/**/*"]
   }
 };

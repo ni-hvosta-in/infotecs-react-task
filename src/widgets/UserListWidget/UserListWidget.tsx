@@ -4,12 +4,8 @@ import { api } from "@/app/Api";
 import { User } from "@/entities/model/User";
 import { useQuery } from "@tanstack/react-query";
 import { UserCard } from "@/entities/ui/userCard/UserCard";
-const Wrapper = styled.div`
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-`;
+import { List } from "antd";
+import { Wrapper } from "./UserListWidget.style";
 
 async function getUsers(): Promise<User[]>{
     
@@ -27,11 +23,16 @@ export function UserListWidget () {
 
     return (
         <Wrapper>
-            {result.data?.map((user) => (
-                <div key={user.id}>
-                    <UserCard user={user}/>
-                </div>
-            ))}   
+            <List 
+                itemLayout="horizontal"
+                dataSource={result.data} 
+                loading={result.isLoading}
+                renderItem={(user) => (
+                    <List.Item key={user.id}>
+                        <UserCard user={user}/>
+                    </List.Item>    
+                )}
+            />
         </Wrapper>
     )
 }

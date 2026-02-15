@@ -6,15 +6,13 @@ import { useQuery } from "@tanstack/react-query";
 import { UserCard } from "@/entities/ui/userCard/UserCard";
 import { List } from "antd";
 import { Wrapper } from "./UserListWidget.style";
+import { getUsers } from "@/features/api/getUsers";
 
-async function getUsers(): Promise<User[]>{
-    
-    const data = await api.get("/users");
-    return data.data
-
+interface UserListWidgetProps {
+    onClick?: (user: User) => void;
 }
 
-export function UserListWidget () {
+export function UserListWidget ({onClick} : UserListWidgetProps) {
     
     const result = useQuery({
         queryKey: ["users"],
@@ -29,7 +27,7 @@ export function UserListWidget () {
                 loading={result.isLoading}
                 renderItem={(user) => (
                     <List.Item key={user.id}>
-                        <UserCard user={user}/>
+                        <UserCard user={user} onClick={onClick}/>
                     </List.Item>    
                 )}
             />

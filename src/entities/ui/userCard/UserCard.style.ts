@@ -14,6 +14,7 @@ export const WraperInfo = styled.div`
 `;
 
 export const Name = styled.h3`
+    cursor: pointer;
     font-size: 18px;
     font-color: #000;
     font-weight: 600;

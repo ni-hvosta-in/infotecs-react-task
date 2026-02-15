@@ -52,7 +52,7 @@ export function CreateUserModal({open, onClose} : CreateUserModalProps){
                 ]}>
                 <Title>Создание пользователя</Title>
                 <Form layout="vertical" name="createUser" onFinish={(data) => post.mutate(data)} >
-                    <Form.Item name="name" label = "Имя" rules={[{required: true, message: "Введите логин"}]} >
+                    <Form.Item name="name" label = "Имя" rules={[{required: true, message: "Введите имя"}]} >
                         <Input/>
                     </Form.Item>
                     <Form.Item

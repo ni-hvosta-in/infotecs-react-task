@@ -14,7 +14,7 @@ export function UserCard ({user, onClick} : UserProps) {
         <Wrapper>
             <Avatar src={user.avatar} alt={user.name} size={60} onClick={() => onClick?.(user)} style={{cursor: "pointer"}}/>
             <WraperInfo>
-                <Name>{user.name}</Name>
+                <Name onClick={() => onClick?.(user)}>{user.name}</Name>
                 <CreatedAt>Зарегистрирован {dayjs(user.createdAt).format('DD.MM.YYYY')}</CreatedAt>
             </WraperInfo>
         </Wrapper>

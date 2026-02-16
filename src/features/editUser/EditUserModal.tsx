@@ -71,13 +71,14 @@ export function EditUserModal({open, onClose, selectedUser} : EditUserModalProps
         <Modal
             open={open}
             onCancel={() => !edit.isPending ?onClose(): notification.warning({message: "Подождите, идет запрос"})}
+            forceRender = {true}
             footer = {[
                 <Button type="primary" onClick={() => selectedUser && remove.mutate(selectedUser)} key="delete" loading={edit.isPending}>Удалить</Button>,
-                <Button type="primary" htmlType = "submit" key="save" form = "editUser" loading={edit.isPending}>Сохранить</Button>,
+                <Button type="primary" onClick={() => form.submit()} key="save"  loading={edit.isPending}>Сохранить</Button>,
                 <Button type="primary" onClick={onClose} key="cancel" loading={edit.isPending}>Отмена</Button>
             ]}>
             <Title>Редактирование пользователя</Title>
-            <Form layout="vertical" name="editUser" onFinish={(data) => edit.mutate(data)} form={form}>
+            <Form layout="vertical" onFinish={(data) => edit.mutate(data)} form={form}>
                 <Form.Item name="id" label="id">
                     <Input disabled = {true}/>
                 </Form.Item>

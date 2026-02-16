@@ -10,13 +10,6 @@ import { auth } from "@/features/auth/auth";
 export function LoginPage() {
 
     const navigate = useNavigate();
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (token){
-            navigate("/users");
-        } 
-
-    }, [])
 
     const mutation = useMutation({
         mutationFn: auth,

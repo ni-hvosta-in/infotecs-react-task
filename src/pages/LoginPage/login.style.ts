@@ -12,8 +12,9 @@ export const Wrapper = styled.div`
 `;
 
 export const Container = styled.div`
-    width: 400px;
+    max-width: 500px;
     padding: 30px;
+    width: 80%;
     background: white;
     border-radius: 8px;
     display: flex;
@@ -28,6 +29,7 @@ export const Title = styled.h1`
 `;
 
 export const ButtonItem = styled(Form.Item)`
-  margin-bottom: 0;
-  text-align: right;
+    margin-bottom: 0;
+    text-align: right;
+
 `;

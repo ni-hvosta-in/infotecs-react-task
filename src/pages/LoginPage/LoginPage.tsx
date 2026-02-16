@@ -41,7 +41,7 @@ export function LoginPage() {
                     </Form.Item>
 
                     <ButtonItem>
-                        <Button type="primary" htmlType="submit" style={{width: "25%"}} loading={mutation.isPending}>Войти</Button>
+                        <Button type="primary" htmlType="submit" style={{width: "100px"}} loading={mutation.isPending}>Войти</Button>
                     </ButtonItem>
 
                 </Form>

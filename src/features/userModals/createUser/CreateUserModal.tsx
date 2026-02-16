@@ -28,7 +28,6 @@ export function CreateUserModal({open, onClose} : CreateUserModalProps){
                 message: "Ошибка при попытке создать пользователя",
                 description: error.message
             });
-            onClose();
         }
     });
 

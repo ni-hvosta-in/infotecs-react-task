@@ -50,7 +50,6 @@ export function EditUserModal({open, onClose, selectedUser} : EditUserModalProps
                 message: "Ошибка при попытке редактирования пользователя",
                 description: error.message
             });
-            onClose();
         }
     });
 

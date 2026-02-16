@@ -61,8 +61,8 @@ export function EditUserModal({open, onClose, selectedUser} : EditUserModalProps
             ]}>
             <Title>Редактирование пользователя</Title>
             <Form layout="vertical" name="editUser" onFinish={(data) => edit.mutate(data)} form={form}>
-                <Form.Item name="id" label="id" >
-                    <Input/>
+                <Form.Item name="id" label="id">
+                    <Input disabled = {true}/>
                 </Form.Item>
                 <Form.Item name="name" label = "Имя" rules={[{required: true, message: "Введите имя"}]} >
                     <Input/>

@@ -2,9 +2,10 @@ import { api } from "@/app/Api";
 import { User} from "@/entities/model/User";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Modal, Button, Form, Input, notification } from "antd";
-import { useForm } from "antd/es/form/Form";
 import React, { useEffect } from "react";
+import { editUser } from "../api/editUser";
 import styled from "styled-components";
+import { deleteUser } from "../api/deleteUser";
 interface EditUserModalProps {
     open: boolean;
     onClose: () => void;
@@ -20,18 +21,15 @@ const Title = styled.h1`
 
 export function EditUserModal({open, onClose, selectedUser} : EditUserModalProps) {
 
-    async function editUser(newUser: User) : Promise<User>{
-        console.log("edit");
-        return await api.put(`users/${newUser.id}`, newUser);
-    }
+
     
     const queryClient = useQueryClient();
 
     const edit = useMutation({
         mutationFn: editUser,
-        onSuccess: () => {
+        onSuccess: (user) => {
             notification.success({
-                message: "Пользователь успешно отредактирован"
+                message: `Пользователь ${user.name} успешно отредактирован`
             })
             queryClient.invalidateQueries({queryKey:["users"]});
             onClose();
@@ -44,6 +42,25 @@ export function EditUserModal({open, onClose, selectedUser} : EditUserModalProps
             onClose();
         }
     });
+
+    const remove = useMutation({
+        mutationFn: deleteUser,
+        onSuccess: (user) => {
+            notification.success({
+                message: `Пользователь ${user.name} успешно удален`
+            })
+            queryClient.invalidateQueries({queryKey:["users"]});
+            onClose();
+        }, 
+        onError: (error : Error) => {
+            notification.error({
+                message: "Ошибка при попытке редактирования пользователя",
+                description: error.message
+            });
+            onClose();
+        }
+    });
+
     const [form] = Form.useForm();
     
     useEffect(() => {
@@ -55,7 +72,7 @@ export function EditUserModal({open, onClose, selectedUser} : EditUserModalProps
             open={open}
             onCancel={() => !edit.isPending ?onClose(): notification.warning({message: "Подождите, идет запрос"})}
             footer = {[
-                <Button type="primary" key="delete" loading={edit.isPending}>Удалить</Button>,
+                <Button type="primary" onClick={() => selectedUser && remove.mutate(selectedUser)} key="delete" loading={edit.isPending}>Удалить</Button>,
                 <Button type="primary" htmlType = "submit" key="save" form = "editUser" loading={edit.isPending}>Сохранить</Button>,
                 <Button type="primary" onClick={onClose} key="cancel" loading={edit.isPending}>Отмена</Button>
             ]}>

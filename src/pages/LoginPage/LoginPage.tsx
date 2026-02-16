@@ -4,6 +4,7 @@ import { Wrapper, Container, Title, ButtonItem } from "./login.style";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { auth } from "@/features/auth/auth";
+import { trimData } from "@/utilities/trimData";
 
 
 
@@ -30,7 +31,12 @@ export function LoginPage() {
         <Wrapper>
             <Container>
                 <Title>Авторизация</Title>
-                <Form onFinish={(data) => mutation.mutate(data)} layout="vertical" size="large" >
+                <Form onFinish={(data) => {
+                    data = trimData(data);
+                    mutation.mutate(data);
+                    }}
+                    layout="vertical"
+                    size="large" >
                     
                     <Form.Item name="username" rules={[{required: true, message: "Введите логин"}]}>
                         <Input placeholder="Логин"/>

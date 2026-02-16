@@ -7,6 +7,7 @@ import { editUser } from "../../api/editUser";
 import { deleteUser } from "../../api/deleteUser";
 import { UserFields } from "../UserField";
 import { Title } from "../modal.style";
+import { trimData } from "@/utilities/trimData";
 interface EditUserModalProps {
     open: boolean;
     onClose: () => void;
@@ -77,7 +78,12 @@ export function EditUserModal({open, onClose, selectedUser} : EditUserModalProps
                 <Button type="primary" onClick={handleClose} key="cancel" loading={isPending}>Отмена</Button>
             ]}>
             <Title>Редактирование пользователя</Title>
-            <Form layout="vertical" onFinish={(data) => edit.mutate(data)} form={form}>
+            <Form layout="vertical"
+                onFinish={(data) => {
+                    data = trimData(data);
+                    edit.mutate(data)
+                    }}
+                    form={form}>
                 <UserFields showId = {true}/>
             </Form>
         </Modal>

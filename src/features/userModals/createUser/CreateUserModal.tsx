@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postUser } from "../../api/postUser";
 import { UserFields } from "../UserField";
 import { Title } from "../modal.style";
+import { trimData } from "@/utilities/trimData";
 
 interface CreateUserModalProps {
     open: boolean;
@@ -42,7 +43,12 @@ export function CreateUserModal({open, onClose} : CreateUserModalProps){
                 <Button type="primary" onClick={onClose} key="cancel" loading={post.isPending}>Отмена</Button>
             ]}>
             <Title>Создание пользователя</Title>
-            <Form layout="vertical" name="createUser" onFinish={(data) => post.mutate(data)} >
+            <Form layout="vertical"
+                name="createUser"
+                onFinish={(data) => {
+                    data = trimData(data);
+                    post.mutate(data)
+                    }}>
                 <UserFields showId = {false}/>
             </Form>
         </Modal>

@@ -1,7 +1,6 @@
 import React from "react";
 import { Form, Modal, Input, notification, message , Button} from "antd";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import styled from "styled-components";
 import { postUser } from "../../api/postUser";
 import { UserFields } from "../UserField";
 import { Title } from "../modal.style";

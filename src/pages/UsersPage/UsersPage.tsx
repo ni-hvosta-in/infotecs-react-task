@@ -15,7 +15,6 @@ export function UserPage() {
     const [selectedUser, setSelectedUser] = useState<User>();
 
     function handleClickUser(user: User): void {
-        console.log(user);
         setIsOpenEdit(true);
         setSelectedUser(user);
     }

@@ -1,6 +1,6 @@
 import React from "react";
 import { User } from "../../model/User";
-import {Image, Avatar} from "antd"
+import {Avatar} from "antd"
 import { Wrapper, WraperInfo, Name, CreatedAt } from "./UserCard.style";
 import dayjs from "dayjs";
 

@@ -4,9 +4,9 @@ import { Button} from "antd";
 import { Wrapper, Header, StyledButton } from "./UsersPage.style";
 import { useNavigate } from "react-router-dom";
 import { logout } from "@/features/auth/logout";
-import { CreateUserModal } from "@/features/createUser/CreateUserModal";
+import { CreateUserModal } from "@/features/userModals/createUser/CreateUserModal";
 import { User} from "@/entities/model/User";
-import { EditUserModal } from "@/features/editUser/EditUserModal";
+import { EditUserModal } from "@/features/userModals/editUser/EditUserModal";
 
 export function UserPage() {
 

@@ -3,24 +3,17 @@ import { User} from "@/entities/model/User";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Modal, Button, Form, Input, notification } from "antd";
 import React, { useEffect } from "react";
-import { editUser } from "../api/editUser";
-import styled from "styled-components";
-import { deleteUser } from "../api/deleteUser";
+import { editUser } from "../../api/editUser";
+import { deleteUser } from "../../api/deleteUser";
+import { UserFields } from "../UserField";
+import { Title } from "../modal.style";
 interface EditUserModalProps {
     open: boolean;
     onClose: () => void;
     selectedUser?: User;
 }
 
-const Title = styled.h1`
-    font-size: 18px;
-    font-weight: 500;
-    display: flex;
-    margin-top: 0;
-`;
-
 export function EditUserModal({open, onClose, selectedUser} : EditUserModalProps) {
-
 
     
     const queryClient = useQueryClient();
@@ -67,32 +60,27 @@ export function EditUserModal({open, onClose, selectedUser} : EditUserModalProps
         selectedUser ? form.setFieldsValue(selectedUser) : form.resetFields(); 
     }, [selectedUser]);
 
+    const handleClose = () => {
+        form.setFieldsValue(selectedUser);
+        onClose();
+    }
+
+    const isPending = edit.isPending || remove.isPending;
+    
     return (
         <Modal
             open={open}
-            onCancel={() => !edit.isPending ?onClose(): notification.warning({message: "Подождите, идет запрос"})}
+            onCancel={() => !isPending ? handleClose(): notification.warning({message: "Подождите, идет запрос"})}
             forceRender = {true}
             footer = {[
-                <Button type="primary" onClick={() => selectedUser && remove.mutate(selectedUser)} key="delete" loading={edit.isPending}>Удалить</Button>,
-                <Button type="primary" onClick={() => form.submit()} key="save"  loading={edit.isPending}>Сохранить</Button>,
-                <Button type="primary" onClick={onClose} key="cancel" loading={edit.isPending}>Отмена</Button>
+                <Button type="primary" onClick={() => selectedUser && remove.mutate(selectedUser)} key="delete" loading={isPending}>Удалить</Button>,
+                <Button type="primary" onClick={() => form.submit()} key="save"  loading={isPending}>Сохранить</Button>,
+                <Button type="primary" onClick={handleClose} key="cancel" loading={isPending}>Отмена</Button>
             ]}>
             <Title>Редактирование пользователя</Title>
             <Form layout="vertical" onFinish={(data) => edit.mutate(data)} form={form}>
-                <Form.Item name="id" label="id">
-                    <Input disabled = {true}/>
-                </Form.Item>
-                <Form.Item name="name" label = "Имя" rules={[{required: true, message: "Введите имя"}]} >
-                    <Input/>
-                </Form.Item>
-                <Form.Item
-                    name="avatar" 
-                    label = "Ссылка на аватарку" 
-                    rules={[{type: "url", message: "Введите корректную ссылку на аватарку"}, 
-                    {required: true, message: "Введите ссылку на аватарку"}]}>
-                    <Input/>
-                </Form.Item>
+                <UserFields showId = {true}/>
             </Form>
         </Modal>
-    );
+    );``
 }

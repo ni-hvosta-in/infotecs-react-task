@@ -4,7 +4,7 @@ import { Button } from "antd";
 export const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
-    padding: 24px;
+    padding: 30px;
     padding-top: 16px;
 `;
 export const Header = styled.div`

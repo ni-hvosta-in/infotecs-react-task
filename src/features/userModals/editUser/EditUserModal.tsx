@@ -82,5 +82,5 @@ export function EditUserModal({open, onClose, selectedUser} : EditUserModalProps
                 <UserFields showId = {true}/>
             </Form>
         </Modal>
-    );``
+    );
 }

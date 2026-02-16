@@ -1,6 +1,4 @@
 import React from "react";
-import styled from "styled-components";
-import { api } from "@/app/Api";
 import { User } from "@/entities/model/User";
 import { useQuery } from "@tanstack/react-query";
 import { UserCard } from "@/entities/ui/userCard/UserCard";

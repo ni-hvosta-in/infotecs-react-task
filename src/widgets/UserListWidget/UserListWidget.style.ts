@@ -5,6 +5,6 @@ export const Wrapper = styled.div`
     overflow-y: auto;
 
     @media (max-width: 768px) {
-        max-height: 60vh;
+        max-height: 70vh;
     }
 `;

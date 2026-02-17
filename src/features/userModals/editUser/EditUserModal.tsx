@@ -48,7 +48,7 @@ export function EditUserModal({open, onClose, selectedUser} : EditUserModalProps
         }, 
         onError: (error : Error) => {
             notification.error({
-                message: "Ошибка при попытке редактирования пользователя",
+                message: "Ошибка при попытке удаления пользователя",
                 description: error.message
             });
         }
